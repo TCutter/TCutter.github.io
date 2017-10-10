@@ -1,4 +1,4 @@
-title: It's a secret!
+title: Hello, world! I'm TCutter
 description: > # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
   line in _config.yml. It will appear in your document head meta (for
@@ -9,8 +9,8 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Author Settings
 author: TCutter # add your name
-author-img: t_cutter.jpg # add your photo
-about-author: I'm a rookie programmer. # add description
+author-img: t-cutter.jpg # add your photo
+about-author: It's a secret! # add description
 twitter: # add your Twitter handle
 facebook: # add your Facebook handle
 github: TCutter # add your Github handle
