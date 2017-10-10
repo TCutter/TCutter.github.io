@@ -21,11 +21,9 @@ tags:
 ```
 var temp = array[Math.floor(Math.random() * array.length)];
 ```
-
 2. 类数组对象调用数组方法
 ```
 /*类数组对象:如函数的参数arguments,DOM的NodeList和HTMLCollection*/
-
 Array.prototype.forEach.call(arguments,function(value){}); //遍历
 var args = Array.prototype.slice.call(arguments); //类数组对象转换成数组
 ```
