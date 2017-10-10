@@ -11,10 +11,7 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 author: TCutter # add your name
 author-img: t-cutter.jpg # add your photo
 about-author: It's a secret! # add description
-twitter: # add your Twitter handle
-facebook: # add your Facebook handle
 github: TCutter # add your Github handle
-linkedin: # add your Linkedin handle
 email: # add your Email address
 
 # Disqus
