@@ -12,6 +12,21 @@ tags:
 
 ## 一、简介
 ## 二、基础知识
+### &#8194;2.1  Javascript类型
+#### &#8194;&#8194;2.1.1  基础类型
+1.number
+2.boolean
+3.string
+4.null
+5.undefined
+
+#### &#8194;&#8194;2.1.2  引用类型
+1.array
+2.function
+3.Object
+
+### &#8194;2.2  原型和原型链
+
 ## 三、Ajax
 ## 四、Canvas
 ## 五、客户端存储
@@ -60,6 +75,31 @@ var arr3 =arr1.concat(arr2);	// [1,2,3,4,5,6]
 Array.prototype.push.apply(arr1,arr2);
 console.log(arr1);  //[1,2,3,4,5,6]
 console.log(arr2); //[4,5,6]
+```
+&#8194;6. 避免使用new操作符
+
+```
+var a = new Object();
+var b = new  Array();
+var c = new  String("123");
+
+//改成
+var a = {};
+var b = [];
+var c = "123";
+```
+
+&#8194;7. 遍历对象属性
+
+```
+var a={
+	name:"gx",
+	age:24
+};
+Object.prototype.height = 180;
+//用for...in遍历需要用hasOwnProperty判断是否是原型属性
+
+Object.keys(a); //["name", "age"]
 ```
 
 ## 八、编程规范
