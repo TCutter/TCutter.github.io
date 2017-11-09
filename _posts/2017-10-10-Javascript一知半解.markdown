@@ -102,8 +102,33 @@ Object.prototype.height = 180;
 Object.keys(a); //["name", "age"]
 ```
 
+8. JS 静态成员变量（static member variable）
+
+定义：只有一份，但是被类的所有实例共享的变量。非静态方法需要通过类的实例访问，而静态方法可以直接通过类名访问。
+通过prototype添加的属性和方法不是静态的
+
+````
+function People(){
+	var sex = "man"; //private variable
+	this.age = "24"; //public variable
+
+	this.getAge = function(){ //public method
+		return this.age;
+	}
+}
+
+//The method will be available to all instances but only load in one memory
+People.prototype.getHeight = function(){
+	alert("getHeight");
+}
+
+//Static variable shared by all instances
+People.language = "Chineses";
+````
+[如何在Javascript中创建静态变量](https://stackoverflow.com/questions/1535631/static-variables-in-javascript)
+
 ## 八、编程规范
-1. eval()函数只用来解析序列化串
+1. eval()函数只用来解8.8.析序列化串
 ```
 var jsonData = eval('(' + data + ')');
 ```
