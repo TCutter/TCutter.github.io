@@ -1,0 +1,41 @@
+---
+author: TCutter
+comments: true
+date: 2017-11-14
+layout: post
+categories:
+- Tech
+tags:
+- Node.js 
+- express
+- mongoDb
+---
+
+### Package.json
+位于模块node_modules目录下，运行nodeJS必须文件，常见属性如下：
+- name : 包名
+- version : 版本号
+- description : 包的描述
+- homepage : 包的官网 url
+- author ：包的作者名
+- contributors : 包的其他贡献者姓名
+- dependencies :依赖包列表。如果依赖包没有安装，npm会自动将依赖包安装在node_module目录下
+- repository : 包代码存放地方的类型，如git或svn
+- main ： 程序的主入口文件，执行require("moduleNmae")就会加载这个文件。默认是模块根目录下的index.js文件
+- keywords ：关键字
+
+使用 `npm init` 命令可以创建package.json文件
+
+### 事件
+#### 事件循环
+Node.js 的每一个 API 都是异步的，并作为一个独立线程运行，使用异步函数调用，并处理并发
+
+Node.js 基本上所有的事件机制都是用设计模式中观察者模式实现
+
+Node.js单线程类似进入一个while事件循环，每个异步事件都生成一个事件观察者，如果有事件发生就调用该回调函数。直到没有事件观察者时退出
+
+#### 事件驱动程序
+Node.js 使用事件驱动模型，当web server接收到请求，就把它关闭然后进行处理，然后去服务下一个web请求。当这个请求完成，它被放回处理队列，当到达队列开头，这个结果被返回给用户
+
+在事件驱动模型中，会生成一个主循环来监听事件，当检测到事件时触发回调函数。
+
