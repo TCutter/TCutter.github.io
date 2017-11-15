@@ -39,3 +39,83 @@ Node.js 使用事件驱动模型，当web server接收到请求，就把它关�
 
 在事件驱动模型中，会生成一个主循环来监听事件，当检测到事件时触发回调函数。
 
+#### EventEmitter
+- Node.js里面的许多对象都会分发事件：一个net.Server对象会在每次有新连接时分发一个事件，一个fs.readStream对象会在文件被打开的时候发出一个事件。 所有这些产生事件的对象都是 events.EventEmitter 的实例。
+
+- EventEmitter对象方法
+
+ 方法 | 参数 | 描述
+- | :-: | -: 
+addListener| (event, listener)|为指定事件添加一个监听器到监听器数组的尾部(与 on 的区别？)
+on |(event, listener) |为指定事件注册一个监听器```server.on('connenction,function(){}')```
+ once |  (event, listener)|为指定事件注册一个单次监听器
+ removeListener |  (event, listener)|移除指定事件的某个监听器```server.on('connection', callback);server.removeListener('connection', callback);```
+ removeAllListeners |[event] |移除所有事件的所有监听器， 如果指定事件，则移除指定事件的所有监听器。
+  emit |event, [arg1], [arg2], [...] |按参数的顺序执行每个监听器
+
+  - 类方法
+
+  方法 | 参数 | 描述
+- | :-: | -: 
+listenerCount| (emitter, event)|返回指定事件的监听器数量
+
+实例
+```
+[index.js]
+
+var events = require('events');
+var eventsEmitter = new events.EventEmitter();
+
+
+//监听器1
+var listener1 = function(){
+    console.log("监听器 1 执行");
+};
+
+//监听器2
+var listener2 = function(){
+    console.log("监听器 2 执行");
+};
+
+//绑定'connection'事件，处理函数为listener1
+eventsEmitter.addListener('connection',listener1);
+
+var eventtListners = events.EventEmitter.listenerCount(eventsEmitter,'connection'); 
+console.log("共有 "+eventtListners + "个监听器");
+
+//绑定'connection'事件，处理函数为listener2
+eventsEmitter.addListener('connection',listener2);
+
+//执行类方法
+eventtListners = events.EventEmitter.listenerCount(eventsEmitter,'connection'); 
+console.log("共有 "+eventtListners + "个监听器");
+
+//处理connection事件
+eventsEmitter.emit('connection');
+
+eventsEmitter.removeListener('connection',listener1);
+
+eventtListners = events.EventEmitter.listenerCount(eventsEmitter,'connection'); 
+console.log("共有 "+eventtListners + "个监听器");
+
+// 触发连接事件
+eventsEmitter.emit('connection');
+
+console.log("程序执行完毕。");
+```
+
+执行结果
+```
+[$ node index.js]
+
+共有1个监听器
+共有2个监听器
+监听器 1 执行
+监听器 2 执行
+共有1个监听器
+监听器2执行
+程序执行完毕
+```
+
+### Buffer(缓冲区)
+在处理像TCP流或文件流时，必须使用到二进制数据。因此在 Node.js中，定义了一个 Buffer 类，该类用来创建一个专门存放二进制数据的缓存区。
