@@ -11,19 +11,77 @@ tags:
 ---
 
 ## 一、简介
+JavScrip由三个部分组成
+- ECMAScript : 提供核心语言功能
+- DOM ：提供访问和操作网页内容的方法和接口
+- BOM ：提供与浏览器交互的方法和接口
+
 ## 二、基础知识
 ### 2.1  Javascript类型
 #### 2.1.1  基础类型
-1. number
-2. boolean
-3. string
-4. null
-5. undefined
+1. typeof操作符
+```
+var a = 'undefined';
+var b = null;
+ 
+ console.log(typeof(a)); //'undefined'
+ console.log(typeof(b)); //'object'
+ console.log(typeof NaN); //'number'
+```
+
+2. number
+	- parseInt : 
+	```
+	parseInt(0.7);	//0
+	parseInt(-1.7); //-1
+	parseInt(1.7); //1
+	parseInt('blue123'); //123
+	parseInt('blue'); //NaN
+	```
+	- 数值范围 : 
+	超过数值范围的数被自动保存为Infinity值，如果是正数则为Infinity；负数则为-Infinity。
+	方法isFinity(); //是否是有穷数
+	- NaN : 
+	任何数除以0都会返回NaN
+	```
+	/*isNaN()会尝试将参数转换成数值，若不能转换成数值，则返回true*/
+	console.log(NaN == NaN); //false;
+	console.log(isNaN(NaN)); //true;
+	console.log(isNaN('blue123')); //true;
+	```
+
+3. boolean
+
+数据类型 | true | false
+- | :-: | -: 
+String | 任何非空字符串 | ''和'   '
+Number | 任何非零数字值（包括Infinity和-Infinity）| 0和NaN
+Object | 任何对象 | null
+Undefined | \ | undefined
+
+4. string
+- 字符字面量
+
+子面量 | 含义
+- | :-: | -: 
+\r | 回车：回到当前行的最左边
+\n | 换行
+\' | 单引号
+\" | 双引号
+5. null
+6. undefined
 
 #### 2.1.2  引用类型
 1. array
 2. function
 3. Object
+
+属性和方法
+- Constructor : 保存着用于创建当前对象的函数
+
+- hasOwnProperty(propertyName) : 检查给定的属性在当前对象实例中（而不是在实例的原型中）
+
+- isPropertyOf(object):用于检查传入的对象是否是另一个对象的原型
 
 ### 2.2  原型和原型链
 
@@ -126,6 +184,8 @@ People.prototype.getHeight = function(){
 People.language = "Chineses";
 ````
 [如何在Javascript中创建静态变量](https://stackoverflow.com/questions/1535631/static-variables-in-javascript)
+
+9. [继承](https://johnresig.com/blog/simple-javascript-inheritance/)
 
 ## 八、编程规范
 1. eval()函数只用来解8.8.析序列化串
