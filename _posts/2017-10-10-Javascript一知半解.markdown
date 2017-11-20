@@ -19,17 +19,7 @@ JavScrip由三个部分组成
 ## 二、基础知识
 ### 2.1  Javascript类型
 #### 2.1.1  基础类型
-1. typeof操作符
-```
-var a = 'undefined';
-var b = null;
- 
- console.log(typeof(a)); //'undefined'
- console.log(typeof(b)); //'object'
- console.log(typeof NaN); //'number'
-```
-
-2. number
+1. number
 	- parseInt : 
 	```
 	parseInt(0.7);	//0
@@ -50,7 +40,7 @@ var b = null;
 	console.log(isNaN('blue123')); //true;
 	```
 
-3. boolean
+2. boolean
 
 数据类型 | true | false
 - | :-: | -: 
@@ -59,29 +49,130 @@ Number | 任何非零数字值（包括Infinity和-Infinity）| 0和NaN
 Object | 任何对象 | null
 Undefined | \ | undefined
 
-4. string
+3. string
 - 字符字面量
 
 子面量 | 含义
 - | :-: | -: 
-\r | 回车：回到当前行的最左边
-\n | 换行
-\' | 单引号
-\" | 双引号
-5. null
-6. undefined
+ \r | 回车：回到当前行的最左边
+ \n | 换行
+  \\' | 单引号
+\\" | 双引号
+4. null
+5. undefined
 
-#### 2.1.2  引用类型
+#### 2.1.2 操作符
+1. typeof操作符
+```
+var a = 'undefined';
+var b = null;
+ 
+ console.log(typeof(a)); //'undefined'
+ console.log(typeof(b)); //'object'
+ console.log(typeof NaN); //'number'
+```
+
+2. 位操作符
+
+基础：在ECMAScript中的所有数据是以64位格式存储，位操作符先将64位的值转化成32位的整数，然后执行操作，最后再将结果转换回64位。
+
+对于有符号的整数，32位中的第32位（称为’符号位‘）表示树数值的符号：0位正，1为负。正数以纯二进制格式存储，前31位中的每一位都表示2次幂（第一位叫做位0表示2ˇ0，以此类推）；
+
+负数使用二进制补码，计算一个负数的二进制码需要一下步骤：
+    
+- 求这个数绝对值的二进制码；
+- 求二进制的反码；
+- 得到的二进制反码加 1。
+
+
+&#8194; a. 按位非（NOT）
+
+用 ～ 表示，结果就是返回数值的反码。其本质是将操作数的负值减 1
+
+&#8194; b. 按位与（AND）
+
+用 & 表示
+第一个数值 | 第二个数值 | 结果
+- | :-: | -: 
+1 | 1 | 1
+1 |0| 0
+0 | 1 | 0
+0 | 0 | 0
+
+&#8194; c. 按位或（OR）
+
+用 | 表示
+第一个数值 | 第二个数值 | 结果
+- | :-: | -: 
+1 | 1 | 1
+1 |0| 1
+0 | 1 | 1
+0 | 0 | 0
+
+&#8194; d. 按位异或（XOR）
+
+用 ^ 表示：两个数值在对应位上只有一个 1 时才返回
+第一个数值 | 第二个数值 | 结果
+- | :-: | -: 
+1 | 1 | 0
+1 |0| 1
+0 | 1 | 1
+0 | 0 | 0
+
+&#8194; e. 左移和右移
+
+左移用 << 表示，（除符号位外）将操作数的所有位向左移动指定的位数；
+
+右移用 >> 表示，（除符号位外）将操作数的所有位向右移动指定的位数
+
+&#8194; f. 无符号右移(没有无符号左移)
+
+无符号右移用 >>> 表示，将操作数的所有位向右移动指定的位数；
+
+#### 2.1.3 变量类型和内存
+
+1. 基本类型和引用类型变量的区别
+- 基本类型不能添加属性，而🎵类型可以；
+- 复制变量值：
+
+```
+// 基本类型变量复制的是副本
+var a = 5;
+var b = a;
+b = 2;
+console.log(a); //5
+
+/* 引用类型变量复制时，同样会将存储在变量对象中的值复制一份到新变量分配的空间中。不同的是，这个副本实际上是一个指向存储在堆中的某个对象的指针。复制操作结束后，两个变量实际上将引用同一个对象
+ */
+ var a = {
+	 name : 'gx'
+ };
+ var b = a;
+ b.name = 'cm';
+ console.log(a.name); //cm
+```
+
+#### 2.1.4  引用类型
 1. array
 2. function
 3. Object
 
 属性和方法
-- Constructor : 保存着用于创建当前对象的函数
-
+- constructor : 保存着用于创建当前对象的函数
 - hasOwnProperty(propertyName) : 检查给定的属性在当前对象实例中（而不是在实例的原型中）
-
 - isPropertyOf(object):用于检查传入的对象是否是另一个对象的原型
+- propertyIsEnumerable(propertyName) : 检查给定的方法能否用for...in枚举
+- toString() ： 返回对象的字符串表示
+- valueOf() ：返回对象的字符串、数值或布尔值表示。通常与toString()返回的结果相同
+
+```
+function a(){
+	this.name = 'TCutter'
+};
+
+var b = new a();
+console.log(b.constructor === a); //true
+```
 
 ### 2.2  原型和原型链
 
