@@ -11,7 +11,7 @@ tags:
 - mongoDb
 ---
 
-### Package.json
+## Package.json
 位于模块node_modules目录下，运行nodeJS必须文件，常见属性如下：
 - name : 包名
 - version : 版本号
@@ -26,7 +26,7 @@ tags:
 
 使用 `npm init` 命令可以创建package.json文件
 
-### 事件
+## 事件
 #### 事件循环
 Node.js 的每一个 API 都是异步的，并作为一个独立线程运行，使用异步函数调用，并处理并发
 
@@ -117,5 +117,163 @@ console.log("程序执行完毕。");
 程序执行完毕
 ```
 
-### Buffer(缓冲区)
+## Buffer(缓冲区)
 在处理像TCP流或文件流时，必须使用到二进制数据。因此在 Node.js中，定义了一个 Buffer 类，该类用来创建一个专门存放二进制数据的缓存区。
+
+## Stream(流)
+所有的 Stream 对象都是 EventEmitter 的实例。常用的事件有：
+- data - 当有数据可读时触发。
+- end - 没有更多的数据可读时触发。
+- error - 在接收和写入过程中发生错误时触发。
+- finish - 所有数据已被写入到底层系统时触发
+
+#### 读取流
+```
+var fs = require('fs');
+var readStream = fs.createReadStream('input.txt'); //创建stream对象
+
+readStream.setEncoding('UTF8'); // 设置编码为 utf8。
+var data ='';
+readStream.on('data',function(chunk){
+    data += chunk;
+    console.log('chunk : '+chunk);
+});
+
+readStream.on('end',function(){
+    console.log('end : '+data);
+});
+
+readStream.on('error',function(){
+    console.log('error');
+});
+
+readStream.on('finish',function(){
+    console.log('finish');
+});
+
+console.log('程序执行完毕');
+
+/*输出：
+    程序执行完毕
+    chunk : node.js
+    end : node.js
+    */
+
+```
+
+#### 写入流
+```
+//创建写入流
+var fs = require("fs");
+var data ='node.js';
+
+// 创建一个可以写入的流，写入到文件 output.txt 中.如果没有output文件则会创建一个新的文件
+var writeStream = fs.createWriteStream('output.txt');
+
+// 使用 utf8 编码写入数据
+writerStream.write(data,'UTF8');
+
+// 标记文件末尾
+writerStream.end();
+
+// 处理流事件
+writerStream.on('finish', function() {
+    console.log("写入完成。");
+});
+
+writerStream.on('error', function(err){
+   console.log(err.stack);
+});
+
+console.log("程序执行完毕");
+```
+
+#### 管道流
+管道提供了一个输出流到输入流的机制。通常我们用于从一个流中获取数据并将数据传递到另外一个流中。
+```
+var fs = require("fs");
+
+// 创建一个可读流
+var readerStream = fs.createReadStream('input.txt');
+
+// 创建一个可写流
+var writerStream = fs.createWriteStream('output.txt');
+
+// 管道读写操作
+// 读取 input.txt 文件内容，并将内容写入到 output.txt 文件中
+readerStream.pipe(writerStream);
+//只能输出到输入
+
+console.log("程序执行完毕");
+```
+
+#### 链式流
+链式是通过连接输出流到另外一个流并创建多个对个流操作链的机制。链式流一般用于管道操作。
+```
+//利用管道和链式来压缩和解压文件
+//compress.js
+var fs = require('fs');
+var zlib = require('zlib');
+
+// 压缩 input.txt 文件为 input.txt.gz
+fs.createReadStream('../input.txt')
+    .pipe(zlib.createGzip())
+    .pipe(fs.createWriteStream('input.txt.zip'));
+
+console.log('文件压缩成功');
+
+
+//decompress.js
+// 解压 input.txt.gz 文件为 input.txt
+var fs = require('fs');
+var zlib = require('zlib');
+fs.createReadStream('input.txt.zip')
+.pipe(zlib.createGunzip())
+.pipe(fs.createWriteStream('input.txt'));
+
+console.log("文件解压完成。");
+```
+
+## 模块
+作用：让node.js的文件可以互相调用；
+定义：一个node.js文件就是一个模块，这个文件可能是JavaScript 代码、JSON 或者编译过的C/C++ 扩展。
+
+#### 创建模块
+首先创建一个main.js文件
+```
+//main.js
+var person = require('./person'); //引入当前目录下的person.js文件（./ 为当前目录，node.js 默认后缀为 js)
+
+person.sayName();
+```
+exports 是模块公开的接口，require 用于从外部获取一个模块的接口，即所获取模块的 exports 对象
+
+创建person.js文件
+```
+//person.js
+exports.sayName = function(){
+    console.log("My name is TCutter！");
+}
+```
+
+More：
+
+有时想把一个对象封装在模块中
+```
+//person.js
+    module.exports = function(){
+        var name = 'ACutter';
+        this.sayName = function(){
+            console.log("My name is " + name);
+        }
+    }
+```
+
+main.js中可以直接使用这个对象
+```
+//main.js
+var Person = require('./person');
+
+var per = new Person();
+per.sayName();
+```

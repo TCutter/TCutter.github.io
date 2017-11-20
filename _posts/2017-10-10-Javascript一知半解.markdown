@@ -187,6 +187,22 @@ People.language = "Chineses";
 
 9. [继承](https://johnresig.com/blog/simple-javascript-inheritance/)
 
+10. window.open
+
+	chrome60开始取消了对顶部框架导航（top-frame navigation）的支持，直接使用window.open会报错：
+	```Not allowed to navigate top frame to data URL ```
+
+	[需要将数据放到iframe中](https://stackoverflow.com/questions/45493234/jspdf-not-allowed-to-navigate-top-frame-to-data-url)
+	```
+	 var canvasConvertResult = canvas.toDataURL('image/png');
+	 var iframe = "<iframe width='100%' height='100%' src='" + canvasConvertResult + "'></iframe>"
+    var x = window.open();
+    x.document.open();
+    x.document.write(iframe);
+    x.document.close();
+
+	```
+
 ## 八、编程规范
 1. eval()函数只用来解8.8.析序列化串
 ```
