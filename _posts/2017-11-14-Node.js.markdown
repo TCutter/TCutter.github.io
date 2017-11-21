@@ -44,20 +44,21 @@ Node.js 使用事件驱动模型，当web server接收到请求，就把它关�
 
 - EventEmitter对象方法
 
- 方法 | 参数 | 描述
-- | :-: | -: 
-addListener| (event, listener)|为指定事件添加一个监听器到监听器数组的尾部(与 on 的区别？)
-on |(event, listener) |为指定事件注册一个监听器```server.on('connenction,function(){}')```
- once |  (event, listener)|为指定事件注册一个单次监听器
- removeListener |  (event, listener)|移除指定事件的某个监听器```server.on('connection', callback);server.removeListener('connection', callback);```
- removeAllListeners |[event] |移除所有事件的所有监听器， 如果指定事件，则移除指定事件的所有监听器。
-  emit |event, [arg1], [arg2], [...] |按参数的顺序执行每个监听器
+
+| 方法 | 参数 | 描述|
+| ------------- |:-------------:| -----:|
+|addListener| (event, listener)|为指定事件添加一个监听器到监听器数组的尾部(与 on 的区别？)|
+|on |(event, listener) |为指定事件注册一个监听器```server.on('connenction,function(){}')```|
+ |once |  (event, listener)|为指定事件注册一个单次监听器|
+ |removeListener |  (event, listener)|移除指定事件的某个监听器```server.on('connection', callback);server.removeListener('connection', callback);``|
+ |removeAllListeners |[event] |移除所有事件的所有监听器， 如果指定事件，则移除指定事件的所有监听器。|
+  |emit |event, [arg1], [arg2], [...] |按参数的顺序执行每个监听器|
 
   - 类方法
 
-  方法 | 参数 | 描述
-- | :-: | -: 
-listenerCount| (emitter, event)|返回指定事件的监听器数量
+|方法 | 参数 | 描述|
+| ------------- |:-------------:| -----:|
+|listenerCount| (emitter, event)|返回指定事件的监听器数量|
 
 实例
 ```
@@ -277,3 +278,47 @@ var Person = require('./person');
 var per = new Person();
 per.sayName();
 ```
+
+#### 从服务器加载模块
+
+require方法接受以下几种参数的传递：
+- http、fs、path等，原生模块。
+- /mod或../mod，相对路径的文件模块。
+- /pathtomodule/mod，绝对路径的文件模块。
+- mod，非原生模块的文件模块。
+
+模块加载顺序如下图:
+
+![模块加载顺序](../images/node/flowchat_of_module_load.PNG)
+
+
+### 全局对象
+
+在浏览器 JavaScript 中，通常 window 是全局对象， 而 Node.js 中的全局对象是 global
+
+全局变量
+#### __filename
+表示当前正在执行的脚本的文件名。它将输出文件所在位置的绝对路径。
+如果在模块中，返回的值是模块文件的路径。
+
+#### __dirname
+表示当前执行脚本所在的目录。
+
+```
+//index.js
+console.log("__filename : " + __filename);
+console.log("__dirname : " + __dirname);
+```
+
+执行 node index.js命令
+
+```
+//output
+__filename : C:\Users\xiao.guo\Desktop\Demo\Node.JS\test\server.js
+__dirname : C:\Users\xiao.guo\Desktop\Demo\Node.JS\test
+```
+
+#### process
+|属性 | 描述|
+| ------------- |:-------------:|
+|listenerCount|返回指定事件的监听器数量|
