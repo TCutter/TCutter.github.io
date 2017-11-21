@@ -62,7 +62,9 @@ JavScrip由三个部分组成
 5. undefined
 
 #### 2.1.2 操作符
+
 1. typeof操作符
+
 ```
 var a = 'undefined';
 var b = null;
