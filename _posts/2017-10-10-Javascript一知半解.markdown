@@ -285,10 +285,12 @@ People.language = "Chineses";
 
 10. window.open
 
+
 	chrome60开始取消了对顶部框架导航（top-frame navigation）的支持，直接使用window.open会报错：
 	```Not allowed to navigate top frame to data URL ```
 
 	[需要将数据放到iframe中](https://stackoverflow.com/questions/45493234/jspdf-not-allowed-to-navigate-top-frame-to-data-url)
+
 	```
 	 var canvasConvertResult = canvas.toDataURL('image/png');
 	 var iframe = "<iframe width='100%' height='100%' src='" + canvasConvertResult + "'></iframe>"
@@ -298,6 +300,35 @@ People.language = "Chineses";
     x.document.close();
 
 	```
+11. event对象
+
+a. 移动端event
+
+[touches,targetTouches和changedTouches的区别](https://www.cnblogs.com/mengff/p/6005516.html)
+
+- touches: 当前屏幕上所有触摸点的列表
+
+- targetTouches: 当前对象上所有触摸点列表
+
+- changedTouches: 涉及当前(引发)事件的触摸点的列表
+
+b. event坐标
+
+[关于几个属性坐标的理解](https://www.cnblogs.com/frontendnotes/articles/6536006.html)
+
+- event.clientX、event.clientY：鼠标相对于浏览器窗口可视区域的X，Y坐标（窗口坐标），可视区域不包括工具栏和滚动条;
+
+- event.pageX、event.pageY：类似于event.clientX、event.clientY，但它们使用的是文档坐标而非窗口坐标;
+
+- event.offsetX、event.offsetY:鼠标相对于事件源元素（触发事件的对象srcElement）的X,Y坐标;
+
+- event.screenX、event.screenY:鼠标相对于用户显示器屏幕左上角的X,Y坐标
+
+- event.x、event.y:设置或获取鼠标指针位置相对于父文档的 x、y坐标
+
+![event坐标图鉴](../images/js/event_position.PNG)
+
+12. [call、apply和bind](https://www.cnblogs.com/pssp/p/5215621.html);
 
 ## 八、编程规范
 1. eval()函数只用来解8.8.析序列化串
